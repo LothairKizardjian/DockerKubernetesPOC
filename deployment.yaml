@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: python-app-deployment
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: python-app
@@ -14,4 +14,11 @@ spec:
     spec:
       containers:
       - name: python-app-container
-        image: lothairdocker/python-app:1.0.2
+        image: lothairdocker/python-app:1.0.3
+        volumeMounts:
+        - mountPath: /python-app
+          name: python-app-volume
+      volumes:
+        - name: python-app-volume
+          hostPath:
+            path: /python-app

@@ -1,8 +1,15 @@
 #!/bin/bash
-import logging
 import random
 import time
 
+from filelock import FileLock
+
+id = random.randint(0, 100)
+filename = "/python-app/test-file.txt"
+lock = FileLock(filename + ".lock")
+
 while True:
     time.sleep(1)
-    logging.warning(f"ID : {random.randint(0, 100)} - Hello World !")
+    with lock:
+        with open(filename, "a+") as test_file:
+            test_file.write(f"ID {id} : Hello World !\n")
