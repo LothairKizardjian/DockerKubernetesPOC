@@ -49,7 +49,7 @@ while True:
 
 An id is randomly generated. It will try to write in the **/python-app/test-file.text** the message ```ID {id} : Hello World !```. This file is stored in a persistent volume described in the **deployment.yaml** configuration file. This persistent volume is of type **hostPath** meaning it is a volume stored in the host of the pods which is the control-pane node. Each pod will be able to access this same file. They obviously need to be coordinated as they could access this file concurrently and overwrite each others' modifications, hence a file lock on this file is used to manage this behaviour.
 
-After applying the deployment, two pods should be running and each executing the app.py application. To see the results one can log in to one of the pods with following command :
+After applying the deployment, two pods should be running and each executing the app.py application. To see the results one can log in to one of the pods with the following command :
 
 ```bash
 kubectl exec -it python-app-deployment-(pod-id) -- bash
