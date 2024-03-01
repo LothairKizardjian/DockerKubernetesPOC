@@ -15,7 +15,6 @@ Docker build -t your-registry/python-app-(1 or 2):x # with x being the version o
 Docker push your-registry/python-app:x
 ```
 
-
 Launch minikube :
 ```bash
 minikube start
@@ -28,6 +27,7 @@ kubectl apply -f deployment.yaml
 
 ## Description
 -- This section is evolving as the code is being improved --
+
 Currently this project will start a kubernetes deployment. The deployment is configured to launch two containers in one pod. The first container will execute the app-1/app.py code and the second container will execute the app-2/app.y code.
 
 Each app will try to write in the **/python-app/test-file.text** the message ```App (1 or 2): Hello World !```. This file is stored in a persistent volume described in the **deployment.yaml** configuration file. This persistent volume is of type **hostPath** meaning it is a volume stored in the host of the pods which is the control-pane node. Each pod will be able to access this same file. They obviously need to be coordinated as they could access this file concurrently and overwrite each others' modifications, hence a file lock on this file is used to manage this behaviour.
@@ -38,11 +38,13 @@ kubectl exec -it python-app-deployment-(pod-id) --container python-app-(1 or 2) 
 ```
 
 It is then possible to see the result with:
+
 ```bash
 tail -f /python-app/test-file.txt
 ```
 
 The result should look like this:
+
 ```bash
 App 1 : Hello World !
 App 2 : Hello World !
