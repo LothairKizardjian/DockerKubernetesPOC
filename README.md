@@ -15,9 +15,19 @@ Docker build -t your-registry/python-app-(1 or 2):x # with x being the version o
 Docker push your-registry/python-app:x
 ```
 
-Launch minikube :
+Create a single node cluster :
 ```bash
 minikube start
+```
+
+Add a new node to the cluster that will serve as a worker node on which the pods will be created to execute the containers :
+```bash
+minikube node add
+```
+
+Add a label for each created node:
+```bash
+kubectl label node minikube-m02 role=worker
 ```
 
 You can now create a deployment with kubectl using the **deployment.yaml** file:
